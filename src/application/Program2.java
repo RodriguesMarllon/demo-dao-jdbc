@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import model.dao.DaoFactory;
 import model.dao.DepartmentDao;
+import model.dao.impl.DepartmentDaoJDBC;
 import model.entities.Department;
 
 public class Program2 {
@@ -25,18 +26,22 @@ public class Program2 {
 			System.out.println(obj);
 		}
 		
-		/*
-		System.out.println("\n=== TEST 4: department insert ===");
-		Department newDepartment = new Department(null, "TI");
+		System.out.println("\n=== TEST 3: department insert ===");
+		Department newDepartment = new Department(9, "RH");
 		departmentDao.insert(newDepartment);
 		System.out.println("Inserted! new id = " + newDepartment.getId());
-		*/
 		
-		System.out.println("\n=== TEST 5: department update ===");
+		System.out.println("\n=== TEST 4: department update ===");
 		department = departmentDao.findById(7);
 		department.setName("Automação");
 		departmentDao.update(department);
 		System.out.println("Update completed");
+		
+		System.out.println("\n=== TEST 5: department update ===");
+		System.out.print("Enter id for delete test: ");
+		int id = sc.nextInt();
+		departmentDao.deleteById(id);
+		System.out.println("Delete completed");
 		
 		sc.close();
 	}
