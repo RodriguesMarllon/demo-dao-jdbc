@@ -26,11 +26,11 @@ public class DepartmentDaoJDBC implements DepartmentDao{
 		
 		try {
 			st = conn.prepareStatement(
-					"INSERT INTO department "
-					+ "(Id, Name) "
-					+ "VALUES "
-					+ "(?, ?)",
-					Statement.RETURN_GENERATED_KEYS);
+				"INSERT INTO department "
+				+ "(Id, Name) "
+				+ "VALUES "
+				+ "(?, ?)",
+				Statement.RETURN_GENERATED_KEYS);
 			st.setInt(1, obj.getId());
 			st.setString(2, obj.getName());
 			
@@ -58,8 +58,24 @@ public class DepartmentDaoJDBC implements DepartmentDao{
 
 	@Override
 	public void update(Department obj) {
-		// TODO Auto-generated method stub
+		PreparedStatement st = null;
 		
+		try { 
+			st = conn.prepareStatement(
+				"UPDATE department "
+				+ "SET Id = ?, Name = ? "
+				+ "WHERE Id = ?");
+			st.setInt(1, obj.getId());
+			st.setString(2, obj.getName());
+			
+			st.executeUpdate();
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
 	}
 
 	@Override
